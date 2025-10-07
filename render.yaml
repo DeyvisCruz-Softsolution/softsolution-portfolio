@@ -1,0 +1,43 @@
+# render.yaml
+services:
+  - type: web
+    name: softsolution-portfolio
+    region: virginia
+    plan: free
+    runtime: docker
+    repo: https://github.com/softsolution/portfolio
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_KEY
+        value: base64:BM24ZHqdi/V7Lkv6fNWnoDQEgDBfBvMKgnrcud4FcIs=
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://softsolution-portfolio.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: dpg-d3injk3uibrs73d2g3j0-a.virginia-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: softsolution_portfolio
+      - key: DB_USERNAME
+        value: softuser
+      - key: DB_PASSWORD
+        value: RKZUZSbaMn6nF6LfnMdcPLAMTYahcjem
+      - key: APP_TIMEZONE
+        value: America/Bogota
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dlkywgymz
+      - key: CLOUDINARY_KEY
+        value: 455489424582257
+      - key: CLOUDINARY_SECRET
+        value: b4kT3dG9DQz3AUfvDjKGIOtBA7E
+      - key: CLOUDINARY_URL
+        value: cloudinary://455489424582257:b4kT3dG9DQz3AUfvDjKGIOtBA7E@dlkywgymz
+      - key: CLOUDINARY_SECURE
+        value: "true"
