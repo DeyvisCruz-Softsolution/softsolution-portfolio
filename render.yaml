@@ -7,7 +7,8 @@ services:
     dockerfilePath: ./Dockerfile
     autoDeploy: true
     buildCommand: ""      # Opcional si Dockerfile maneja todo
-    startCommand: ""      # Opcional, se usa CMD del Dockerfile
+    startCommand: php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
+      # Opcional, se usa CMD del Dockerfile
     envVars:
       - key: APP_ENV
         value: production
