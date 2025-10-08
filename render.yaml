@@ -8,8 +8,6 @@ services:
     autoDeploy: true
     buildCommand: ""      # Opcional si Dockerfile maneja todo
     startCommand: ""      # Opcional, se usa CMD del Dockerfile
-    preDeployCommand: |
-      php artisan migrate --force
     envVars:
       - key: APP_ENV
         value: production
@@ -20,14 +18,16 @@ services:
       - key: APP_URL
         value: https://softsolution-portfolio.onrender.com
       - key: DB_CONNECTION
-        value: mysql
+        value: pgsql
       - key: DB_HOST
-        value: <tu-host-de-Render-MySQL>
+        value: dpg-d3injk3uibrs73d2g3j0-a.virginia-postgres.render.com
       - key: DB_PORT
-        value: '3306'
+        value: '5432'
       - key: DB_DATABASE
-        value: <tu-base-de-datos>
+        value: softsolution_portfolio
       - key: DB_USERNAME
-        value: <tu-usuario>
+        value: softuser
       - key: DB_PASSWORD
-        value: <tu-contraseña>
+        value: RKZUZSbaMn6nF6LfnMdcPLAMTYahcjem
+      - key: DB_SSLMODE
+        value: require
