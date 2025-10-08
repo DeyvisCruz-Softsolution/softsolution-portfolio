@@ -24,7 +24,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
 # Generar APP_KEY si no existe
-RUN php artisan key:generate --force
+# RUN php artisan key:generate --force
 
 # Exponer puerto para Apache
 EXPOSE 80
