@@ -1,11 +1,11 @@
 # Imagen base PHP con Apache
-FROM php:8.2.22-apache
+FROM php:8.2-apache
 
-# Instalar dependencias del sistema y extensiones PHP
+# Instalar dependencias del sistema y extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
-    && docker-php-ext-install pdo pdo_pgsql pgsql zip gd
-
+    git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
+    libonig-dev libxml2-dev default-mysql-client libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -15,25 +15,18 @@ WORKDIR /var/www/html
 
 # Copiar archivos del proyecto
 COPY . .
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip unzip git \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+# Establecer permisos correctos antes de composer
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Instalar dependencias de Laravel
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
 # Generar APP_KEY si no existe
-RUN php artisan key:generate || true
-
-# Establecer permisos
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN php artisan key:generate --force
 
 # Exponer puerto para Apache
 EXPOSE 80
 
-# Comando de inicio
-CMD php artisan migrate --force && apache2-foreground
+# Iniciar Apache (migraciones se harán en pre-deploy)
+CMD ["apache2-foreground"]
