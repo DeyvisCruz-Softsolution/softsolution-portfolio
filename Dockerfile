@@ -28,6 +28,12 @@ RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interacti
 
 # Exponer puerto para Apache
 EXPOSE 80
+# Copiar configuración personalizada de Apache
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Habilitar mod_rewrite para Laravel
+RUN a2enmod rewrite
+
 
 # Iniciar Apache (migraciones se harán en pre-deploy)
 CMD ["apache2-foreground"]
