@@ -1,4 +1,7 @@
-# Imagen base PHP con Apache
+# Etapa 1: obtener Composer
+FROM composer:2 AS composer_stage
+
+# Etapa 2: imagen base PHP con Apache
 FROM php:8.2-apache
 
 # Instalar dependencias del sistema y extensiones PHP necesarias
@@ -6,10 +9,10 @@ RUN apt-get update && apt-get install -y \
     git unzip curl libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
     libonig-dev libxml2-dev libicu-dev default-mysql-client \
     nodejs npm \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring
+    && docker-php-ext-install pdo pdo_mysql zip mbstring intl bcmath exif pcntl
 
-# Instalar Composer desde imagen oficial
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copiar composer desde la primera etapa
+COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 
 # Establecer directorio de trabajo
 WORKDIR /var/www/html
@@ -24,7 +27,7 @@ RUN mkdir -p storage bootstrap/cache \
 
 # Instalar dependencias de Laravel
 RUN if [ -f "composer.json" ]; then \
-      php -d memory_limit=-1 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
+      composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
     fi
 
 # Instalar dependencias frontend y compilar assets con Vite
@@ -32,14 +35,9 @@ RUN if [ -f "package.json" ]; then \
       npm install && npm run build; \
     fi
 
-# Copiar configuración personalizada de Apache
+# Configuración de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-
-# Habilitar mod_rewrite para Laravel
 RUN a2enmod rewrite
 
-# Exponer puerto 80 para Apache
 EXPOSE 80
-
-# Iniciar Apache
 CMD ["apache2-foreground"]
