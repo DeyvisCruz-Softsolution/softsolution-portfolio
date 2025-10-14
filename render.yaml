@@ -19,7 +19,7 @@ services:
       - key: APP_DEBUG
         value: 'false'
       - key: APP_KEY
-        value: base64:GENERATE_RANDOM_KEY
+        value: base64:Wn3vZkYp1uGv9JkLzQ2r8tXyA1b3cD4eF5g6h7i8j9k0=
       - key: APP_URL
         value: https://softsolution-portfolio.onrender.com
       - key: DB_CONNECTION
