@@ -1,15 +1,21 @@
 * text=auto eol=lf
 
+# === Detección de tipos para diffs ===
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html
 *.md diff=markdown
 *.php diff=php
 
+# === Archivos binarios (no convertir saltos de línea) ===
 *.png binary
 *.jpg binary
+*.jpeg binary
 *.ttf binary
+*.woff binary
+*.woff2 binary
 
+# === Archivos ignorados en exportaciones ===
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore

@@ -1,3 +1,4 @@
+# === Laravel Básico ===
 *.log
 .DS_Store
 .env
@@ -12,17 +13,32 @@
 /.vscode
 /.zed
 /auth.json
+Thumbs.db
+
+# === Dependencias y cachés ===
 /node_modules
-public/build
-public/hot
-public/storage
+/vendor
 /storage/*.key
 storage/pail
-/vendor
+
+# === Archivos generados por compiladores ===
+public/hot
+
+# ⚠️ Mantener estos archivos fuera, pero NO ignorar /public/build/
+public/mix-manifest.json
+
+# No ignores los assets compilados por Vite
+# ❌ Eliminado: public/build
+# ❌ Eliminado: public/css/
+# ❌ Eliminado: public/js/
+
+# Si usas Vercel u otras plataformas
+.vercel/
+
+# === Archivos de desarrollo o configuración local ===
 Homestead.json
 Homestead.yaml
-Thumbs.db
-public/mix-manifest.json
-public/css/
-public/js/
-.vercel/
+
+# === Archivos de documentación que no deben ir en exportaciones ===
+CHANGELOG.md
+.styleci.yml
