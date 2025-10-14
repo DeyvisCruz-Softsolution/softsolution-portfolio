@@ -27,11 +27,6 @@ public/hot
 # ⚠️ Mantener estos archivos fuera, pero NO ignorar /public/build/
 public/mix-manifest.json
 
-# No ignores los assets compilados por Vite
-# ❌ Eliminado: public/build
-# ❌ Eliminado: public/css/
-# ❌ Eliminado: public/js/
-
 # Si usas Vercel u otras plataformas
 .vercel/
 
