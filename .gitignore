@@ -3,7 +3,6 @@
 .DS_Store
 .env
 .env.backup
-.env.production
 .phpactor.json
 .phpunit.result.cache
 /.fleet
@@ -24,9 +23,6 @@ storage/pail
 # === Archivos generados por compiladores ===
 public/hot
 
-# ⚠️ Mantener estos archivos fuera, pero NO ignorar /public/build/
-public/mix-manifest.json
-
 # Si usas Vercel u otras plataformas
 .vercel/
 
@@ -43,15 +39,3 @@ CHANGELOG.md
 /public/storage
 /public/css/app.css
 /public/js/app.js
-
-# ✅ Pero mantener los archivos generados por Vite
-!public/build
-!public/build/.vite
-!public/build/.vite/manifest.json
-!public/build/assets
-!public/build/css
-!public/build/js
-!public/build/images
-!public/build/fonts
-!public/build/media
-!public/build/robots.txt

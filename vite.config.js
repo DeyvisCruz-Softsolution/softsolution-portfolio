@@ -3,9 +3,9 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     build: {
-        outDir: 'public/build', // 👈 garantiza que los archivos se guarden donde Laravel los busca
-        manifest: true,         // 👈 necesario para modo production
-        emptyOutDir: true,      // limpia la carpeta antes de generar los nuevos archivos
+        outDir: 'public/build',
+        manifest: true,
+        emptyOutDir: true,
     },
     plugins: [
         laravel({
