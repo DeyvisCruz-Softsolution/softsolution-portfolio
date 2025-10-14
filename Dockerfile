@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     git unzip curl libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
     libonig-dev libxml2-dev libicu-dev default-mysql-client \
     nodejs npm \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring intl bcmath exif pcntl
+    && docker-php-ext-install pdo pdo_mysql zip mbstring intl bcmath exif pcntl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copiar composer desde la primera etapa
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
@@ -20,12 +21,12 @@ WORKDIR /var/www/html
 # Copiar archivos del proyecto
 COPY . .
 
-# Establecer permisos correctos
+# Crear y dar permisos a carpetas necesarias
 RUN mkdir -p storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Instalar dependencias de Laravel
+# Instalar dependencias de Laravel (sin dependencias de desarrollo)
 RUN if [ -f "composer.json" ]; then \
       composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
     fi
@@ -33,6 +34,12 @@ RUN if [ -f "composer.json" ]; then \
 # Instalar dependencias frontend y compilar assets con Vite
 RUN if [ -f "package.json" ]; then \
       npm install && npm run build; \
+    fi
+
+# 🔥 NUEVO: Asegurar que la carpeta build se incluya correctamente
+RUN if [ -d "public/build" ]; then \
+      echo "Build generado, asegurando inclusión en la imagen..."; \
+      cp -r public/build /var/www/html/public/build; \
     fi
 
 # Configuración de Apache
