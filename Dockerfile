@@ -36,12 +36,10 @@ RUN if [ -f "package.json" ]; then \
       npm install && npm run build; \
     fi
 
-# 🔥 Copiar los assets generados al lugar correcto dentro del contenedor
-RUN mkdir -p /var/www/html/public/build \
-    && cp -r public/build/* /var/www/html/public/build/ \
-    && ls -la /var/www/html/public/build
+# 🔥 Verificar que el manifest exista (sin copiar sobre sí mismo)
+RUN ls -la public/build && cat public/build/manifest.json || echo "⚠️ manifest.json no encontrado"
 
-# Copiar configuración de Apache
+# Configuración de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
