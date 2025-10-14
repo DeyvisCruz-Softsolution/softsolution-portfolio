@@ -12,7 +12,7 @@ services:
       php artisan config:clear
       php artisan route:clear
       php artisan view:clear
-      php artisan migrate --force
+      php artisan migrate:fresh --force
     envVars:
       - key: APP_ENV
         value: production
@@ -23,18 +23,16 @@ services:
       - key: APP_URL
         value: https://softsolution-portfolio.onrender.com
       - key: DB_CONNECTION
-        value: pgsql
+        value: mysql
       - key: DB_HOST
-        value: dpg-d3injk3uibrs73d2g3j0-a.virginia-postgres.render.com
+        value: sql10.freesqldatabase.com
       - key: DB_PORT
-        value: '5432'
+        value: '3306'
       - key: DB_DATABASE
-        value: softsolution_portfolio
+        value: sql10802814
       - key: DB_USERNAME
-        value: softuser
+        value: sql10802814
       - key: DB_PASSWORD
-        value: RKZUZSbaMn6nF6LfnMdcPLAMTYahcjem
-      - key: DB_SSLMODE
-        value: require
+        value: tdEWiflKHP
       - key: LOG_CHANNEL
         value: stderr

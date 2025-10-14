@@ -4,9 +4,7 @@ FROM php:8.2-apache
 # Instalar dependencias del sistema y extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
-    libonig-dev libxml2-dev libicu-dev default-mysql-client libpq-dev \
-    && docker-php-ext-install \
-        pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip intl
+    libonig-dev libxml2-dev libicu-dev default-mysql-client libpq-dev
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
