@@ -19,7 +19,7 @@ COPY . .
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Instalar dependencias de Laravel
-RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
 # Copiar configuración personalizada de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
