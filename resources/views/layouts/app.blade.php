@@ -8,13 +8,14 @@
   {{-- ========================= --}}
   {{-- ARCHIVOS DE ESTILO Y VITE --}}
   {{-- ========================= --}}
-  @production
-      {{-- En producción (Render) carga los assets compilados --}}
-      @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @if(app()->environment('production'))
+      {{-- En producción (Render) --}}
+      <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+      <script type="module" src="{{ asset('build/assets/app.js') }}"></script>
   @else
       {{-- En desarrollo (local con npm run dev) --}}
       @vite(['resources/css/app.css', 'resources/js/app.js'])
-  @endproduction
+  @endif
 
   {{-- Librerías externas --}}
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
