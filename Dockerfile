@@ -1,7 +1,11 @@
+# ==============================
 # Etapa 1: obtener Composer
+# ==============================
 FROM composer:2 AS composer_stage
 
+# ==============================
 # Etapa 2: imagen base PHP con Apache
+# ==============================
 FROM php:8.2-apache
 
 # Instalar dependencias del sistema y extensiones PHP necesarias
@@ -26,22 +30,32 @@ RUN mkdir -p storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Instalar dependencias de Laravel (sin dependencias de desarrollo)
+# ==============================
+# Instalar dependencias de Laravel
+# ==============================
 RUN if [ -f "composer.json" ]; then \
       composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
     fi
 
-# Instalar dependencias frontend y compilar assets con Vite
+# ==============================
+# Compilar frontend con Vite
+# ==============================
 RUN if [ -f "package.json" ]; then \
       npm install && npm run build; \
     fi
 
-# 🔥 Verificar que el manifest exista (sin copiar sobre sí mismo)
-RUN ls -la public/build && cat public/build/manifest.json || echo "⚠️ manifest.json no encontrado"
+# ✅ Verificar que el manifest se haya generado correctamente
+RUN echo "📂 Contenido de public/build:" && ls -la public/build && \
+    echo "🧩 Manifest:" && cat public/build/manifest.json || echo "⚠️ manifest.json no encontrado"
 
+# ==============================
 # Configuración de Apache
+# ==============================
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
+# Puerto expuesto
 EXPOSE 80
+
+# Comando por defecto
 CMD ["apache2-foreground"]
