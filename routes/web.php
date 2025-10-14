@@ -2,6 +2,17 @@
 
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\MessageController;
+use Illuminate\Support\Facades\DB;
+
+Route::get('/db-check', function () {
+    try {
+        DB::connection()->getPdo();
+        return '✅ Conexión a la base de datos exitosa.';
+    } catch (\Exception $e) {
+        return '❌ Error de conexión: ' . $e->getMessage();
+    }
+});
+
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -18,3 +29,4 @@ Route::get('/blog/{id}', [PageController::class, 'blogShow'])->name('blog.show')
 
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [MessageController::class, 'store'])->name('messages.store');
+
