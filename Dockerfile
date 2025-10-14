@@ -27,30 +27,23 @@ RUN mkdir -p storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 # Instalar dependencias de Laravel (sin dependencias de desarrollo)
-RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-
-# Instalar dependencias frontend y compilar assets con Vite
-RUN npm install && npm run build
-
-# ✅ Copiar build generado al lugar correcto (asegura manifest.json dentro de la imagen final)
-RUN if [ -f "./public/build/manifest.json" ]; then \
-      echo "✅ manifest.json encontrado, build copiado correctamente"; \
-    else \
-      echo "❌ ERROR: manifest.json no existe"; \
-      exit 1; \
+RUN if [ -f "composer.json" ]; then \
+      composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
     fi
 
-# Configuración de Apache
+# Instalar dependencias frontend y compilar assets con Vite
+RUN if [ -f "package.json" ]; then \
+      npm install && npm run build; \
+    fi
+
+# 🔥 Copiar los assets generados al lugar correcto dentro del contenedor
+RUN mkdir -p /var/www/html/public/build \
+    && cp -r public/build/* /var/www/html/public/build/ \
+    && ls -la /var/www/html/public/build
+
+# Copiar configuración de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
-
-# Limpiar caches y asegurar permisos
-RUN php artisan config:clear \
- && php artisan cache:clear \
- && php artisan route:clear \
- && php artisan view:clear \
- && chown -R www-data:www-data storage bootstrap/cache \
- && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
 CMD ["apache2-foreground"]
