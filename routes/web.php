@@ -2,17 +2,16 @@
 
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\MessageController;
-use Illuminate\Support\Facades\DB;
 
-Route::get('/db-check', function () {
+
+Route::get('/migrate-test', function () {
     try {
-        DB::connection()->getPdo();
-        return '✅ Conexión a la base de datos exitosa.';
+        \Artisan::call('migrate', ['--force' => true]);
+        return '✅ Migraciones ejecutadas.';
     } catch (\Exception $e) {
-        return '❌ Error de conexión: ' . $e->getMessage();
+        return '❌ Error: ' . $e->getMessage();
     }
 });
-
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
