@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev libxml2-dev libicu-dev default-mysql-client \
     && docker-php-ext-install pdo pdo_mysql zip mbstring
 
-# Instalar Composer
+# Instalar Composer desde imagen oficial
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Establecer directorio de trabajo
@@ -17,10 +17,14 @@ WORKDIR /var/www/html
 COPY . .
 
 # Establecer permisos correctos
-RUN chown -R www-data:www-data storage bootstrap/cache
+RUN mkdir -p storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-# Instalar dependencias de Laravel
-RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+# Validar existencia de composer.json y ejecutar instalación
+RUN if [ -f "composer.json" ]; then \
+      php -d memory_limit=-1 /usr/bin/composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction; \
+    fi
 
 # Copiar configuración personalizada de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
