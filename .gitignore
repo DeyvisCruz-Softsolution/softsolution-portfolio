@@ -42,3 +42,21 @@ Homestead.yaml
 # === Archivos de documentación que no deben ir en exportaciones ===
 CHANGELOG.md
 .styleci.yml
+
+# Ignorar solo en desarrollo
+/public/hot
+/public/storage
+/public/css/app.css
+/public/js/app.js
+
+# ✅ Pero mantener los archivos generados por Vite
+!public/build
+!public/build/.vite
+!public/build/.vite/manifest.json
+!public/build/assets
+!public/build/css
+!public/build/js
+!public/build/images
+!public/build/fonts
+!public/build/media
+!public/build/robots.txt
