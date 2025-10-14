@@ -17,23 +17,20 @@ WORKDIR /var/www/html
 # Copiar archivos del proyecto
 COPY . .
 
-# Establecer permisos correctos antes de composer
+# Establecer permisos correctos
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Instalar dependencias de Laravel
 RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
-# Generar APP_KEY si no existe
-# RUN php artisan key:generate --force
-
-# Exponer puerto para Apache
-EXPOSE 80
 # Copiar configuración personalizada de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Habilitar mod_rewrite para Laravel
 RUN a2enmod rewrite
 
+# Exponer puerto 80 para Apache
+EXPOSE 80
 
-# Iniciar Apache (migraciones se harán en pre-deploy)
+# Iniciar Apache
 CMD ["apache2-foreground"]
