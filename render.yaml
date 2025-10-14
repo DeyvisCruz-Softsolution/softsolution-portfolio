@@ -12,7 +12,7 @@ services:
       php artisan config:clear
       php artisan route:clear
       php artisan view:clear
-      php artisan migrate:fresh --force
+      php artisan migrate --force
     envVars:
       - key: APP_ENV
         value: production
