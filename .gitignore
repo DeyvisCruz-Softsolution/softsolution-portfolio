@@ -20,8 +20,7 @@ Thumbs.db
 /storage/*.key
 storage/pail
 
-# === Archivos generados por compiladores ===
-public/hot
+
 
 # Si usas Vercel u otras plataformas
 .vercel/
@@ -33,9 +32,3 @@ Homestead.yaml
 # === Archivos de documentación que no deben ir en exportaciones ===
 CHANGELOG.md
 .styleci.yml
-
-# Ignorar solo en desarrollo
-/public/hot
-/public/storage
-/public/css/app.css
-/public/js/app.js
