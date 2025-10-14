@@ -15,34 +15,42 @@ RUN apt-get update && apt-get install -y \
 # Copiar composer desde la primera etapa
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 
-# Directorio de trabajo
+# Establecer directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar todos los archivos
+# Copiar archivos del proyecto
 COPY . .
 
-# Permisos para Laravel
+# Crear y dar permisos a carpetas necesarias
 RUN mkdir -p storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Instalar dependencias backend
+# Instalar dependencias de Laravel (sin dependencias de desarrollo)
 RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
-# Instalar dependencias frontend y compilar assets
+# Instalar dependencias frontend y compilar assets con Vite
 RUN npm install && npm run build
 
-# Asegurar que el build esté en la imagen final y tenga permisos
-RUN ls -la public/build && \
-    chown -R www-data:www-data public/build && \
-    chmod -R 755 public/build
+# ✅ Copiar build generado al lugar correcto (asegura manifest.json dentro de la imagen final)
+RUN if [ -f "./public/build/manifest.json" ]; then \
+      echo "✅ manifest.json encontrado, build copiado correctamente"; \
+    else \
+      echo "❌ ERROR: manifest.json no existe"; \
+      exit 1; \
+    fi
 
-# Configurar Apache
+# Configuración de Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
-# Evitar el error "Could not reliably determine the server name"
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Limpiar caches y asegurar permisos
+RUN php artisan config:clear \
+ && php artisan cache:clear \
+ && php artisan route:clear \
+ && php artisan view:clear \
+ && chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
 CMD ["apache2-foreground"]
