@@ -3,7 +3,7 @@
 @section('title', 'Experiencia')
 
 @section('content')
-<div class="container mx-auto px-4 py--3">
+<div class="container mx-auto px-4 py-3">
     <h1 class="text-5xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 drop-shadow-lg">
         Experiencia
     </h1>
@@ -18,10 +18,9 @@
                 data-description='{!! addslashes($experience->description) !!}'>
 
                 <div class="flex items-center gap-4">
-                   @if($experience->logo)
-                    <img src="{{ asset('images/' . $experience->logo) }}" alt="Logo" class="w-16 h-16 object-contain rounded-lg">
+                    @if($experience->logo)
+                        <img src="{{ asset('images/' . $experience->logo) }}" alt="Logo" class="w-16 h-16 object-contain rounded-lg">
                     @endif
-
                     <div>
                         <h2 class="text-xl font-semibold">{{ $experience->company }}</h2>
                         <p class="text-gray-500 text-sm">{{ $experience->position }}</p>
@@ -54,7 +53,7 @@ const position = document.getElementById('popup-position');
 const dates = document.getElementById('popup-dates');
 const description = document.getElementById('popup-description');
 
-let hoverCard = null;   // Card actual bajo el cursor
+let hoverCard = null;
 let popupTimeout = null;
 
 document.querySelectorAll('.experience-card').forEach(card => {
@@ -63,7 +62,7 @@ document.querySelectorAll('.experience-card').forEach(card => {
 
         popupTimeout = setTimeout(() => {
             const dataLogo = card.dataset.logo;
-            if(dataLogo) {
+            if (dataLogo) {
                 logo.src = dataLogo;
                 logo.classList.remove('hidden');
             } else {
@@ -77,14 +76,14 @@ document.querySelectorAll('.experience-card').forEach(card => {
 
             popup.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
             popup.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-        }, 50); // pequeño retraso para evitar parpadeo
+        }, 50);
     });
 
     card.addEventListener('mouseleave', () => {
         hoverCard = null;
         clearTimeout(popupTimeout);
         setTimeout(() => {
-            if(!hoverCard && !popup.matches(':hover')) {
+            if (!hoverCard && !popup.matches(':hover')) {
                 popup.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
                 popup.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
             }
@@ -93,17 +92,14 @@ document.querySelectorAll('.experience-card').forEach(card => {
 });
 
 popup.addEventListener('mouseleave', () => {
-    if(!hoverCard) {
+    if (!hoverCard) {
         popup.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
         popup.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
     }
 });
 </script>
 
-
-
 <style>
-/* Estilos para listas y viñetas */
 .prose ul {
     list-style-type: disc;
     margin-left: 1rem;
@@ -112,8 +108,6 @@ popup.addEventListener('mouseleave', () => {
     list-style-type: decimal;
     margin-left: 1rem;
 }
-
-/* Scrollbar elegante */
 #experience-popup::-webkit-scrollbar {
     width: 8px;
 }
@@ -124,8 +118,6 @@ popup.addEventListener('mouseleave', () => {
 #experience-popup::-webkit-scrollbar-track {
     background: transparent;
 }
-
-/* Hacer que el popup ocupe todo el ancho y alto disponible de su contenedor */
 #experience-popup .flex-1 {
     max-height: 75vh;
 }
