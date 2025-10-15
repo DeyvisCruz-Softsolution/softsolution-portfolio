@@ -8,18 +8,17 @@
   {{-- ========================= --}}
   {{-- ARCHIVOS DE ESTILO Y VITE --}}
   {{-- ========================= --}}
-  @if(app()->environment('production'))
+  @production
       {{-- En producción (Render) carga los assets compilados --}}
-      <link rel="stylesheet" href="{{ secure_asset('build/assets/app.css') }}">
-      <script type="module" src="{{ secure_asset('build/assets/app.js') }}"></script>
+      @vite(['resources/css/app.css', 'resources/js/app.js'])
   @else
       {{-- En desarrollo (local con npm run dev) --}}
       @vite(['resources/css/app.css', 'resources/js/app.js'])
-  @endif
+  @endproduction
 
   {{-- Librerías externas --}}
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-  <script src="{{ secure_asset('js/turn.min.js') }}"></script>
+  <script src="{{ asset('js/turn.min.js') }}"></script>
 
   {{-- Font Awesome --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -205,3 +204,21 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>@yield('title', 'CV Portafolio')</title>
+
+  {{-- ========================= --}}
+  {{-- ARCHIVOS DE ESTILO Y VITE --}}
+  {{-- ========================= --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  {{-- Librerías externas --}}
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <script src="{{ asset('js/turn.min.js') }}"></script>
+
+  {{-- Font Awesome --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
