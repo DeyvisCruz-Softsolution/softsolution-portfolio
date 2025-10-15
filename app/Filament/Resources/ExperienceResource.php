@@ -106,6 +106,8 @@ class ExperienceResource extends Resource
         return [];
     }
 
+
+    
     public static function getPages(): array
     {
         return [
