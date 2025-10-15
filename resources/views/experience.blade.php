@@ -11,16 +11,17 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         @foreach($experiences as $experience)
             <div class="bg-white rounded-2xl shadow-lg p-1 relative experience-card cursor-pointer"
-                data-logo="{{ $experience->logo ? asset('images/' . $experience->images) : '' }}"
+                data-logo="{{ $experience->logo ? asset('storage/' . $experience->logo) : '' }}"
                 data-company="{{ $experience->company }}"
                 data-position="{{ $experience->position }}"
                 data-dates="{{ $experience->start_date->format('d/m/Y') }} - {{ $experience->end_date?->format('d/m/Y') ?? 'Actualidad' }}"
                 data-description='{!! addslashes($experience->description) !!}'>
 
                 <div class="flex items-center gap-4">
-                    @if($experience->logo)
-                        <img src="{{ asset('storage/' . $experience->logo) }}" alt="Logo" class="w-16 h-16 object-contain rounded-lg">
+                   @if($experience->logo)
+                    <img src="{{ asset('images/' . $experience->logo) }}" alt="Logo" class="w-16 h-16 object-contain rounded-lg">
                     @endif
+
                     <div>
                         <h2 class="text-xl font-semibold">{{ $experience->company }}</h2>
                         <p class="text-gray-500 text-sm">{{ $experience->position }}</p>
