@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         @foreach($experiences as $experience)
             <div class="bg-white rounded-2xl shadow-lg p-1 relative experience-card cursor-pointer"
-                data-logo="{{ $experience->logo ? asset('storage/' . $experience->logo) : '' }}"
+                data-logo="{{ $experience->logo ? asset('images/' . $experience->logo) : '' }}"
                 data-company="{{ $experience->company }}"
                 data-position="{{ $experience->position }}"
                 data-dates="{{ $experience->start_date->format('d/m/Y') }} - {{ $experience->end_date?->format('d/m/Y') ?? 'Actualidad' }}"
