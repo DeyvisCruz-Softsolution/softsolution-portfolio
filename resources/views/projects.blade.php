@@ -136,7 +136,7 @@ body {
 .card-title-vertical {
     position: absolute;          /* lo anclamos dentro de la card */
     top: 50%;                    /* lo bajamos al centro */
-    right: 5rem;                 /* separación del borde derecho */
+    right: 10rem;                 /* separación del borde derecho */
     transform: translateY(-50%) rotate(180deg); /* centrado + giro */
     writing-mode: vertical-rl;   /* texto en vertical */
     font-size: 1.2rem;
@@ -165,7 +165,7 @@ body {
    aunque el título u otro contenido cambie su tamaño */
 .card-buttons {
     position: absolute;                      /* los anclamos dentro del card (.project-card es relative) */
-    left: calc(18rem + 1rem);                 /* separa los botones del número decorativo (5rem = .card-number font-size) */
+    left: calc(17rem + 1rem);                 /* separa los botones del número decorativo (5rem = .card-number font-size) */
     bottom: 6rem;                         /* siempre a 6rem del borde inferior de la card */
     display: flex;
     flex-direction: column;                  /* uno debajo del otro */
