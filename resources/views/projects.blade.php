@@ -82,7 +82,7 @@
                 <h3 class="modal-title">{{ $project->title }} - Galería</h3>
                 <div class="modal-gallery-stage">
                     @foreach($project->gallery as $index => $image)
-                        <img src="{{ asset('storage/' . $image) }}"
+                        <img src="{{ asset('projects/' . $image) }}"
      alt="gallery {{ $project->title }}"
      class="gallery-img @if($index === 0) active @endif">
 
