@@ -25,7 +25,7 @@ class ExperienceResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('logo')
                     ->label('Logo de la empresa')
-                    ->directory('logos')
+                    ->directory('images')
                     ->image()
                     ->imagePreviewHeight('80')
                     ->nullable(),
@@ -107,7 +107,7 @@ class ExperienceResource extends Resource
     }
 
 
-    
+
     public static function getPages(): array
     {
         return [
