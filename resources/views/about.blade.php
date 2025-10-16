@@ -242,32 +242,45 @@
 $(function() {
   const $fb = $("#flipbook");
   const sound = document.getElementById("pageSound");
+// Detectar si el dispositivo es móvil o tablet
+const isMobile = window.innerWidth < 768;
 
-  // Detectar si el dispositivo es móvil o tablet
-  const isMobile = window.innerWidth < 768;
-
-  // Inicializar Turn.js con display forzado
+// Inicializar Turn.js con display dinámico
   $fb.turn({
-    width: isMobile ? 360 : 900,
-    height: isMobile ? 480 : 520,
-    display: "single", // ✅ Forzar una sola hoja
+    width: 900,
+    height: 520,
+    display: "single",
     autoCenter: true,
     gradients: true,
     elevation: 80,
   });
 
-  // Sonido y display dinámico
+  // Sonido y display
   $fb.on("turning", function(e, page) {
     sound.currentTime = 0;
     sound.play();
+    const total = $fb.turn("pages");
+    if (page === 0 || page === total) {
+      if ($fb.turn("display") !== "single") $fb.turn("display", "single");
+    } else {
+      if ($fb.turn("display") !== "double") $fb.turn("display", "double");
+    }
   });
 
   $fb.on("turned", function(e, page) {
     const total = $fb.turn("pages");
+
+    if (page === 1) { $fb.turn("display", "single"); $fb.turn("center", true); }
+    if (page === total) { $fb.turn("display", "single"); $fb.turn("center", true); }
+    if (page === 1 || page === total) { $fb.turn("disable", true); setTimeout(() => $fb.turn("disable", false), 400); }
+
     $("#pageIndicator").text(`Página ${page - 1} de ${total - 2}`);
+
+    // 🔑 Actualizar anillado dinámico
     updateBinding();
   });
 
+  // Click navegación
   $fb.on("click", ".page", function(e){
     const offset = $fb.offset();
     const width = $fb.width();
@@ -276,19 +289,22 @@ $(function() {
     else $fb.turn("next");
   });
 
+  // Inicializar AOS
   AOS.init({ duration: 800, once: true });
 
-  function updateBinding() {
-    const total = $fb.turn("pages");
-    for (let i = 0; i <= total; i++) {
-      const $page = $fb.turn("pageElement", i);
-      $($page).removeClass("page-left page-right");
-      if (i === 0 || i === total) continue;
-      if (i % 2 === 0) $($page).addClass("page-left");
-      else $($page).addClass("page-right");
+  // 🔑 Función de anillado dinámico
+  function updateBinding() { // Actualiza las clases de las páginas para el anillado
+    const total = $fb.turn("pages"); // Total de páginas
+    for (let i = 0; i <= total; i++) { // Recorrer todas las páginas
+      const $page = $fb.turn("pageElement", i); // Obtener el elemento de la página
+      $($page).removeClass("page-left page-right"); // Limpiar clases
+      if (i === 0 || i === total) continue; // Saltar portada y contraportada
+      if (i % 2 === 0) $($page).addClass("page-left");  // Si es par, es página izquierda
+      else $($page).addClass("page-right"); // Si es impar, es página derecha
     }
   }
 
+  // Llamar inicialmente
   updateBinding();
 });
 </script>
