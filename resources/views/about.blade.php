@@ -100,11 +100,11 @@
 .page-scroll::-webkit-scrollbar-thumb { background-color: #a5b4fc; border-radius: 3px; }
 
 .cover-page {
-  background: radial-gradient(circle at center, #1e3a8a, #0f172a); /* azul profundo a negro */
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* fondo oscuro elegante */
   padding: 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
-  color: #f1f5f9;
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.3); /* brillo cian */
+  color: #e0f7fa;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -117,12 +117,13 @@
   color: white;
   text-align: center;
 }
+/* Efecto de neón animado */
 .cover-page::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 70%);
-  animation: pulseGlow 6s ease-in-out infinite;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.1), transparent 70%);
+  animation: neonPulse 5s ease-in-out infinite;
   z-index: 0;
 }
 
@@ -207,25 +208,31 @@
     box-sizing: border-box;
   }
 
- /* Título principal */
+/* Título principal con efecto neón */
 .cover-page h1 {
   font-size: 2.5rem;
-  font-weight: 800;
-  color: #e0e7ff;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  font-weight: 900;
+  color: #39ff14; /* verde fluorescente */
+  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
   margin-bottom: 1rem;
   animation: fadeInDown 1s ease-out;
 }
-/* Subtítulo y descripción */
-.cover-page h2,
 .cover-page p {
-  font-size: 1.125rem;
+  font-size: 1rem;
+  color: #ff00ff; /* magenta fluorescente */
+  text-shadow: 0 0 6px #ff00ff;
   max-width: 40rem;
-  margin: 0 auto 0.75rem;
-  color: #cbd5e1;
-  line-height: 1.6;
-  animation: fadeInUp 1.2s ease-out;
+  margin: 0 auto;
 }
+
+/* Subtítulo y descripción */
+.cover-page h2 {
+  font-size: 1.25rem;
+  color: #00ffff; /* cian fluorescente */
+  text-shadow: 0 0 6px #00ffff;
+  margin-bottom: 0.5rem;
+}
+
 .page-scroll {
     max-width: 100%;
     height: auto;
@@ -244,18 +251,13 @@
     margin-right: 1rem;
     bottom: 1rem;
   }
-  /* Animaciones suaves */
+  /* Animaciones */
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseGlow {
+@keyframes neonPulse {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(1.05); }
 }
