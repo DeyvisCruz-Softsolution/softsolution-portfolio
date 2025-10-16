@@ -10,7 +10,7 @@
         @foreach($blogs as $post)
             <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition">
                 @if($post->cover_image)
-                    <img src="{{ asset('storage/' . $post->cover_image) }}"
+                    <img src="{{ asset('images/' . $post->cover_image) }}"
                          alt="{{ $post->title }}"
                          class="rounded-lg mb-4 w-full h-48 object-cover">
                 @endif
