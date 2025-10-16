@@ -273,6 +273,52 @@
         box-shadow: 0 20px 50px rgba(0,0,0,0.7);
         border: 2px solid #fff; /* Borde más brillante al pasar el mouse */
 }
+    /* ... [todo tu bloque original sin cambios] ... */
+
+    /* 📱 Compatibilidad móvil y tablet */
+
+    /* Contenedor principal */
+    @media (max-width: 767px) {
+        .container {
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+
+    /* Imagen de perfil más visible en móviles */
+    @media (max-width: 767px) {
+        .profile-pic {
+            width: 6rem;
+            height: 6rem;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    /* Elimina márgenes negativos en móviles */
+    @media (max-width: 767px) {
+        .intro-title1,
+        .intro-text,
+        .personal-data {
+            margin-left: 0;
+        }
+    }
+
+    /* Datos personales en una sola columna en móviles */
+    @media (max-width: 767px) {
+        .personal-data {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Altura de tarjetas más compacta en móviles */
+    @media (max-width: 767px) {
+        .card-3d {
+            height: 200px;
+        }
+    }
+
 </style>
 
 {{-- 🔹 Script para efecto tilt dinámico --}}
