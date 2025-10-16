@@ -44,7 +44,7 @@
     </div>
 
     <!-- Indicador de página -->
-<div id="pageIndicator" class="absolute bottom-6 right-20 text-sm text-gray-500 z-50"></div>
+<div id="pageIndicator" class="absolute bottom-1 right-20 text-sm text-gray-500 z-50"></div>
 </div>
 
 <!-- Sonido -->
@@ -100,13 +100,17 @@
 .page-scroll::-webkit-scrollbar-thumb { background-color: #a5b4fc; border-radius: 3px; }
 
 .cover-page {
-  background: linear-gradient( to left, #0000ff, #00ff00);
-  padding: 1.5rem 2rem;
-  box-shadow: inset 0 0 80px rgba(0,1,2,2.1);
-  color: black;
-  border-radius: 23px;
-  position: relative; /* Necesario para el pseudo-elemento */
+  background: radial-gradient(circle at center, #1e3a8a, #0f172a); /* azul profundo a negro */
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+  color: #f1f5f9;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
 }
+
 .text-lg.max-w-2xl {
   font-size: 1.125rem;
   max-width: 32rem;
@@ -117,11 +121,16 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 1, 1, 0.2);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 70%);
+  animation: pulseGlow 6s ease-in-out infinite;
   z-index: 0;
-  border-radius: 8px;
 }
-.cover-page > * { position: relative; z-index: 1; }
+
+/* Eleva el contenido sobre el fondo animado */
+.cover-page > * {
+  position: relative;
+  z-index: 1;
+}
 
 /* Páginas con anillado dinámico */
 .page-with-binding {
@@ -198,20 +207,26 @@
     box-sizing: border-box;
   }
 
-  .cover-page h1 {
-    font-size: 1.5rem;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
-
-  .cover-page h2,
-  .cover-page p {
-    font-size: 1rem;
-    max-width: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .page-scroll {
+ /* Título principal */
+.cover-page h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e0e7ff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  margin-bottom: 1rem;
+  animation: fadeInDown 1s ease-out;
+}
+/* Subtítulo y descripción */
+.cover-page h2,
+.cover-page p {
+  font-size: 1.125rem;
+  max-width: 40rem;
+  margin: 0 auto 0.75rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  animation: fadeInUp 1.2s ease-out;
+}
+.page-scroll {
     max-width: 100%;
     height: auto;
     padding: 1rem;
@@ -229,6 +244,22 @@
     margin-right: 1rem;
     bottom: 1rem;
   }
+  /* Animaciones suaves */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
 }
 </style>
 <!-- Scripts -->
