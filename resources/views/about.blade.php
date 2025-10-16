@@ -44,7 +44,7 @@
     </div>
 
     <!-- Indicador de página -->
-    <div id="pageIndicator" class="absolute bottom-4 right-4 text-sm text-gray-500 z-50"></div>
+    <div id="pageIndicator" class="absolute bottom-4 right-1 text-sm text-gray-500 z-50"></div>
   </div>
 </div>
 
