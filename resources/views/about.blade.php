@@ -25,7 +25,7 @@
       @foreach($abouts as $item)
         <div class="page page-with-binding bg-white rounded-lg shadow-xl p-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
           <div class="page-scroll flex flex-col items-center">
-            <img src="{{ asset('storage/'.$item->image) }}" alt="{{ $item->title }}"
+            <img src="{{ asset('images/'.$item->image) }}" alt="{{ $item->title }}"
                  class="mb-4 h-24 w-24 object-cover rounded-full shadow-md border-4 border-indigo-200 transition-transform duration-300 hover:scale-105">
             <h3 class="text-xl font-semibold text-indigo-800 mb-2 text-center">{{ $item->title }}</h3>
             <div class="prose prose-indigo text-sm leading-relaxed text-justify max-w-4xl">
