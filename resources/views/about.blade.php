@@ -258,6 +258,18 @@
 $(function() {
   const $fb = $("#flipbook");
   const sound = document.getElementById("pageSound");
+// Detectar si el dispositivo es móvil o tablet
+const isMobile = window.innerWidth < 768;
+
+// Inicializar Turn.js con display dinámico
+$fb.turn({
+  width: 900,
+  height: 520,
+  display: isMobile ? "single" : "double", // ✅ Una hoja en móviles
+  autoCenter: true,
+  gradients: true,
+  elevation: 80,
+});
 
   // Inicializar Turn.js
   $fb.turn({
