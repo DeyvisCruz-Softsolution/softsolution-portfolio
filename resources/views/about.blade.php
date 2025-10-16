@@ -182,19 +182,50 @@
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 1px;
 }
-/* 📱 Compatibilidad móvil y elegancia visual */
+/* 📱 Ajustes para celulares y tablets elegantes */
 
-/* Flipbook adaptable */
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
+  .text-center h2 {
+    font-size: 1.25rem;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .book-shell {
+    padding: 0 1rem;
+    overflow-x: hidden;
+  }
+
   #flipbook {
     width: 100%;
     height: auto;
+    transform: scale(0.95);
+    transform-origin: top center;
   }
 
   .page {
     width: 100%;
     height: auto;
     padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .cover-page h1 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .cover-page h2,
+  .cover-page p {
+    font-size: 1rem;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-lg.max-w-2xl {
+    font-size: 1rem;
+    max-width: 100%;
   }
 
   .page-scroll {
@@ -204,42 +235,12 @@
     font-size: 0.95rem;
   }
 
-  .cover-page h1 {
-    font-size: 2rem;
-  }
-
-  .cover-page h2,
-  .cover-page p {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-
-  .text-lg.max-w-2xl {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-}
-
-/* Imagen circular más elegante en móviles */
-@media (max-width: 767px) {
   .page-scroll img {
     width: 5rem;
     height: 5rem;
     margin-bottom: 1rem;
   }
-}
 
-/* Título principal más fluido */
-@media (max-width: 767px) {
-  .text-center h2 {
-    font-size: 1.5rem;
-    padding: 0 1rem;
-    line-height: 1.4;
-  }
-}
-
-/* Indicador de página más visible en móviles */
-@media (max-width: 767px) {
   #pageIndicator {
     font-size: 0.75rem;
     margin-right: 1rem;
